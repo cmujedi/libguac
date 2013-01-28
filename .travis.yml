@@ -1,0 +1,16 @@
+# Default is "./configure && make && make test", but no tests yet
+script: "./configure && make"
+
+# install dependencies
+before_install:
+  - sudo apt-get install libcairo2-dev
+  - autoreconf -i
+
+# use c and gcc
+language: c
+compiler: gcc
+
+# only build branches on whitelist
+branches:
+  only:
+    - setup-ci
