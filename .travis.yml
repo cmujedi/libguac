@@ -1,11 +1,3 @@
-# Default is "./configure && make && make test", but no tests yet
-script: "./configure && make"
-
-# install dependencies
-before_install:
-  - sudo apt-get install libcairo2-dev
-  - autoreconf -i
-
 # use c and gcc
 language: c
 compiler: gcc
@@ -14,3 +6,16 @@ compiler: gcc
 branches:
   only:
     - setup-ci
+
+# install dependencies
+before_install:
+  - sudo apt-get install libcairo2-dev
+
+# before build script, run autoreconf
+before_script: autoreconf -i
+
+# Default is "./configure && make && make test", but no tests yet
+script: "./configure && make"
+
+# after build script, run make install
+after_success: sudo make install
