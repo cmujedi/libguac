@@ -3,9 +3,9 @@ language: c
 compiler: gcc
 
 # only build branches on whitelist
-branches:
-  only:
-    - setup-ci
+#branches:
+#  only:
+#    - setup-ci
 
 # install dependencies
 before_install:
@@ -19,3 +19,9 @@ script: "./configure && make"
 
 # after build script, run make install
 after_success: sudo make install
+
+# add notification email addresses
+notifications:
+  email:
+    recipients:
+      - cmujedi@west.cmu.edu
