@@ -1,0 +1,44 @@
+# Set environment variables
+env:
+  global:
+    - secure: "oQLxLn05AbSq1eJyfAYyIKkoO+PJnDwdOQbhT4treY/e3MvjgFm1qXA4LiDL\nSYeCuJ7E9U1kF0It8Fx/0NQ8P59T6HqYJGr9J/Lkix6UzyNYVx/fO5sxhhx9\nJqwTeei/o66SvBjgNum6as2nYAsZSgtb67/fCE4u0u/ZWX6kPiM="
+
+  matrix: 
+    - secure: "oQLxLn05AbSq1eJyfAYyIKkoO+PJnDwdOQbhT4treY/e3MvjgFm1qXA4LiDL\nSYeCuJ7E9U1kF0It8Fx/0NQ8P59T6HqYJGr9J/Lkix6UzyNYVx/fO5sxhhx9\nJqwTeei/o66SvBjgNum6as2nYAsZSgtb67/fCE4u0u/ZWX6kPiM="
+
+# use c and gcc
+language: c
+compiler: gcc
+
+# only build branches on whitelist
+branches:
+  only:
+    - setup-ci
+
+# install dependencies
+before_install:
+  - sudo apt-get install libcairo2-dev
+
+# before build script, run autoreconf
+before_script: autoreconf -i
+
+# Default is "./configure && make && make test", but no tests yet
+script: "./configure && make"
+
+# after build script, run make install
+after_success: 
+  - sudo make install
+  - curl -s -o output.txt $IRC_TREELOGIC_CHANNEL_TOKEN -d "service=TravisCI" -d "message=$TRAVIS_REPO_SLUG $TRAVIS_BUILD_NUMBER ( $TRAVIS_BRANCH - $TRAVIS_COMMIT ) - Passed" -d "url=https://grove.io/app" -d "icon_url=https://secure.travis-ci.org/$TRAVIS_REPO_SLUG.png"
+
+# after build script, run make install
+after_failure: 
+   - curl -s -o output.txt $IRC_TREELOGIC_CHANNEL_TOKEN -d "service=TravisCI" -d "message=$TRAVIS_REPO_SLUG $TRAVIS_BUILD_NUMBER ( $TRAVIS_BRANCH - $TRAVIS_COMMIT ) - Failed" -d "url=https://grove.io/app" -d "icon_url=https://secure.travis-ci.org/$TRAVIS_REPO_SLUG.png"
+
+# add notification email addresses
+notifications:
+  email:
+    recipients:
+      - cmujedi@west.cmu.edu
+  webhooks:
+    - secure: "oQLxLn05AbSq1eJyfAYyIKkoO+PJnDwdOQbhT4treY/e3MvjgFm1qXA4LiDL\nSYeCuJ7E9U1kF0It8Fx/0NQ8P59T6HqYJGr9J/Lkix6UzyNYVx/fO5sxhhx9\nJqwTeei/o66SvBjgNum6as2nYAsZSgtb67/fCE4u0u/ZWX6kPiM="
+
