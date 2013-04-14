@@ -70,7 +70,7 @@ typedef struct __guac_socket_nest_data {
 
 ssize_t __guac_socket_nest_write_handler(guac_socket* socket,
         void* buf, size_t count) {
-
+    
     __guac_socket_nest_data* data = (__guac_socket_nest_data*) socket->data;
     unsigned char* source = (unsigned char*) buf;
 
@@ -141,6 +141,7 @@ guac_socket* guac_socket_nest(guac_socket* parent, int index) {
 
     /* Store file descriptor as socket data */
     data->parent = parent;
+    data->index = index;
     socket->data = data;
 
     /* Set write handler */

@@ -43,6 +43,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
+#include <pthread.h>
 
 #ifdef __MINGW32__
 #include <winsock2.h>
@@ -83,6 +84,8 @@ ssize_t __guac_socket_fd_read_handler(guac_socket* socket,
 ssize_t __guac_socket_fd_write_handler(guac_socket* socket,
         void* buf, size_t count) {
 
+    pthread_mutex_lock(&(socket->fd_lock));
+
     __guac_socket_fd_data* data = (__guac_socket_fd_data*) socket->data;
     int retval;
 
@@ -99,6 +102,8 @@ ssize_t __guac_socket_fd_write_handler(guac_socket* socket,
         guac_error = GUAC_STATUS_SEE_ERRNO;
         guac_error_message = "Error writing data to socket";
     }
+    
+    pthread_mutex_unlock(&(socket->fd_lock));
 
     return retval;
 }
