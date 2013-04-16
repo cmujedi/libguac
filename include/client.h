@@ -39,6 +39,9 @@
 #ifndef _GUAC_CLIENT_H
 #define _GUAC_CLIENT_H
 
+
+#include <rfb/rfbclient.h>
+
 #include <stdarg.h>
 
 #include "instruction.h"

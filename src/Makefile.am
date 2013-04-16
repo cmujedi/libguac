@@ -42,7 +42,7 @@ libguacincdir = $(includedir)/guacamole
 libguacinc_HEADERS =          \
     ../include/client.h       \
     ../include/error.h        \
-	../include/hash.h         \
+    ../include/hash.h         \
     ../include/instruction.h  \
     ../include/layer.h        \
     ../include/plugin.h       \
@@ -50,12 +50,15 @@ libguacinc_HEADERS =          \
     ../include/protocol.h     \
     ../include/socket.h       \
     ../include/stream.h       \
-    ../include/timestamp.h
+    ../include/timestamp.h    \
+    ../include/audio.h        \
+    ../include/wav_encoder.h  \
+    ../include/ogg_encoder.h
 
 noinst_HEADERS =                 \
     ../include/client-handlers.h \
     ../include/palette.h         \
-	../include/unicode.h
+    ../include/unicode.h
 
 libguac_la_SOURCES =  \
     client.c          \
@@ -71,7 +74,10 @@ libguac_la_SOURCES =  \
 	socket-fd.c       \
 	socket-nest.c     \
 	timestamp.c       \
-	unicode.c
+	unicode.c         \
+    audio.c           \
+	wav_encoder.c     \
+	ogg_encoder.c
 
 lib_LTLIBRARIES = libguac.la
 libguac_la_LDFLAGS = -version-info 4:0:0
