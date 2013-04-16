@@ -44,36 +44,6 @@
 #include "stream.h"
 #include "audio.h"
 
-typedef struct guac_client_data {
-    
-    rfbClient* rfb_client;
-    MallocFrameBufferProc rfb_MallocFrameBuffer;
-
-    int copy_rect_used;
-    char* password;
-    char* encodings;
-    int swap_red_blue;
-
-    guac_layer* cursor;
-    
-    /**
-     * Whether audio is enabled.
-     */
-    int audio_enabled;
-    
-    /**
-     * Audio output, if any.
-     */
-    audio_stream* audio;
-    
-    /**
-     * Lock which is locked and unlocked for each update.
-     */
-    pthread_mutex_t update_lock;
-
-
-} guac_client_data;
-
 audio_stream* audio_stream_alloc(guac_client* client, audio_encoder* encoder) {
 
     /* Allocate stream */
@@ -117,7 +87,7 @@ void audio_stream_end(audio_stream* audio) {
 
     double duration;
 
-    guac_client_data* data = (guac_client_data*) audio->client->data;
+    guac_client* data = (guac_client*) audio->client->data;
 
     /* Flush stream and finish encoding */
     audio_stream_flush(audio);

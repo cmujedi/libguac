@@ -41,7 +41,7 @@
 
 
 #include <rfb/rfbclient.h>
-
+#include <pthread.h>
 #include <stdarg.h>
 
 #include "instruction.h"
@@ -216,6 +216,11 @@ typedef struct guac_client_info {
  * a server on behalf of Guacamole, on behalf of the web-client).
  */
 struct guac_client {
+
+    /**
+     * Lock which is locked and unlocked for each update.
+     */
+    pthread_mutex_t update_lock;
 
     /**
      * The guac_socket structure to be used to communicate with the web-client.
