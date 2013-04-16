@@ -97,14 +97,14 @@ void audio_stream_end(audio_stream* audio) {
     duration = ((double) (audio->pcm_bytes_written * 1000 * 8))
                 / audio->rate / audio->channels / audio->bps;
 
-    pthread_mutex_lock(&(data->update_lock));
+    pthread_mutex_lock(&(data->send_lock));
 
     /* Send audio */
     guac_protocol_send_audio(audio->stream->socket,
             0, audio->encoder->mimetype,
             duration, audio->encoded_data, audio->encoded_data_used);
 
-    pthread_mutex_unlock(&(data->update_lock));
+    pthread_mutex_unlock(&(data->send_lock));
 
     /* Clear data */
     audio->encoded_data_used = 0;

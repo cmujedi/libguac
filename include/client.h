@@ -220,7 +220,7 @@ struct guac_client {
     /**
      * Lock which is locked and unlocked for each update.
      */
-    pthread_mutex_t update_lock;
+    pthread_mutex_t send_lock;
 
     /**
      * The guac_socket structure to be used to communicate with the web-client.
