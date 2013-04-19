@@ -84,8 +84,6 @@ ssize_t __guac_socket_fd_read_handler(guac_socket* socket,
 ssize_t __guac_socket_fd_write_handler(guac_socket* socket,
         void* buf, size_t count) {
 
-    pthread_mutex_lock(&(socket->fd_lock));
-
     __guac_socket_fd_data* data = (__guac_socket_fd_data*) socket->data;
     int retval;
 
@@ -103,8 +101,6 @@ ssize_t __guac_socket_fd_write_handler(guac_socket* socket,
         guac_error_message = "Error writing data to socket";
     }
     
-    pthread_mutex_unlock(&(socket->fd_lock));
-
     return retval;
 }
 
