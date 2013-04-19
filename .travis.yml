@@ -18,6 +18,8 @@ compiler: gcc
 # install dependencies
 before_install:
   - sudo apt-get install libcairo2-dev
+  - sudo apt-get install libvorbis-dev
+  - sudo apt-get install libvorbisenc2
 
 # before build script, run autoreconf
 before_script: autoreconf -i
