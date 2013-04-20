@@ -12,7 +12,7 @@
  * for the specific language governing rights and limitations under the
  * License.
  *
- * The Original Code is libguac-client-rdp.
+ * The Original Code is libguac.
  *
  * The Initial Developer of the Original Code is
  * Michael Jumper.

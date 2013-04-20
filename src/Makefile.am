@@ -81,7 +81,7 @@ libguac_la_SOURCES =  \
 
 # Compile OGG support if available
 if ENABLE_OGG
-    noinst_HEADERS += ../include/ogg_encoder.h
+    libguacinc_HEADERS += ../include/ogg_encoder.h
     libguac_la_SOURCES += ogg_encoder.c
 endif
 
