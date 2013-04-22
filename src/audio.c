@@ -95,7 +95,6 @@ void audio_stream_end(audio_stream* audio) {
     duration = ((double) (audio->pcm_bytes_written * 1000 * 8))
                 / audio->rate / audio->channels / audio->bps;
 
-
     pthread_mutex_lock(&(audio->client->send_lock));
 
     /* Send audio */
