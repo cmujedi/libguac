@@ -40,9 +40,10 @@ AM_CFLAGS = -Werror -Wall -pedantic -I../include
 
 libguacincdir = $(includedir)/guacamole
 libguacinc_HEADERS =          \
+    $(OGG_HEADERS)            \
     ../include/client.h       \
     ../include/error.h        \
-	../include/hash.h         \
+    ../include/hash.h         \
     ../include/instruction.h  \
     ../include/layer.h        \
     ../include/plugin.h       \
@@ -50,29 +51,39 @@ libguacinc_HEADERS =          \
     ../include/protocol.h     \
     ../include/socket.h       \
     ../include/stream.h       \
-    ../include/timestamp.h
+    ../include/timestamp.h    \
+    ../include/audio.h        \
+    ../include/wav_encoder.h
 
 noinst_HEADERS =                 \
     ../include/client-handlers.h \
     ../include/palette.h         \
-	../include/unicode.h
+    ../include/unicode.h
 
 libguac_la_SOURCES =  \
+    $(OGG_SOURCES)    \
     client.c          \
-	client-handlers.c \
-	error.c           \
-	hash.c            \
-	instruction.c     \
-	palette.c         \
-	plugin.c          \
-	pool.c            \
-	protocol.c        \
-	socket.c          \
-	socket-fd.c       \
-	socket-nest.c     \
-	timestamp.c       \
-	unicode.c
+    client-handlers.c \
+    error.c           \
+    hash.c            \
+    instruction.c     \
+    palette.c         \
+    plugin.c          \
+    pool.c            \
+    protocol.c        \
+    socket.c          \
+    socket-fd.c       \
+    socket-nest.c     \
+    timestamp.c       \
+    unicode.c         \
+    audio.c           \
+    wav_encoder.c
+
+# Compile OGG support if available
+if ENABLE_OGG
+    libguacinc_HEADERS += ../include/ogg_encoder.h
+    libguac_la_SOURCES += ogg_encoder.c
+endif
 
 lib_LTLIBRARIES = libguac.la
 libguac_la_LDFLAGS = -version-info 4:0:0
-
