@@ -141,6 +141,7 @@ guac_socket* guac_socket_nest(guac_socket* parent, int index) {
 
     /* Store file descriptor as socket data */
     data->parent = parent;
+    data->index = index;
     socket->data = data;
 
     /* Set write handler */
