@@ -40,6 +40,7 @@
 #define _GUAC_CLIENT_H
 
 #include <stdarg.h>
+#include <pthread.h>
 
 #include "instruction.h"
 #include "layer.h"
@@ -213,6 +214,12 @@ typedef struct guac_client_info {
  * a server on behalf of Guacamole, on behalf of the web-client).
  */
 struct guac_client {
+
+    /**
+     * Lock which is locked and unlocked each time an instruction is sent
+     * to guacamole by the client.
+     */
+    pthread_mutex_t send_lock;
 
     /**
      * The guac_socket structure to be used to communicate with the web-client.
