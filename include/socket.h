@@ -40,7 +40,6 @@
 
 #include <stdint.h>
 #include <unistd.h>
-#include <pthread.h>
 
 /**
  * Defines the guac_socket object and functionss for using and manipulating it.
@@ -104,11 +103,6 @@ typedef int guac_socket_free_handler(guac_socket* socket);
  * output as well as convenience methods for efficiently writing base64 data.
  */
 struct guac_socket {
-
-    /**
-    * Write lock for the socket
-    */
-    pthread_mutex_t fd_lock;
 
     /**
      * Arbitrary socket-specific data.
