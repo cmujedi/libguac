@@ -68,6 +68,23 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([clock_gettime gettimeofday memmove memset select strdup png_get_io_ptr nanosleep])
 
+# Check for libvorbisenc
+have_vorbisenc=yes
+AC_CHECK_HEADER(vorbis/vorbisenc.h,, [have_vorbisenc=no])
+AC_CHECK_LIB([vorbisenc], [vorbis_encode_init],, [have_vorbisenc=no])
+AM_CONDITIONAL([ENABLE_OGG], [test "x${have_vorbisenc}" = "xyes"])
+
+if test "x${have_vorbisenc}" = "xno"
+then
+    AC_MSG_WARN([
+  --------------------------------------------
+   Unable to find libvorbisenc.
+   Sound will not be encoded with Ogg Vorbis.
+  --------------------------------------------])
+else
+    AC_DEFINE([ENABLE_OGG])
+fi
+
 # Check for unit testing library
 AC_CHECK_LIB([cunit], [CU_run_test], [CUNIT_LIBS=-lcunit])
 AC_SUBST(CUNIT_LIBS)
